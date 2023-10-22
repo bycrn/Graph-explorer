@@ -1,0 +1,46 @@
+   
+
+subway_data = {
+                'stations' : {
+                        'numstation : [
+                                     station name,
+                                     ligne 
+                                     terminus Oui : 1 / Non : 0
+                                     branchement principale : 0, 1er branche : 1, 2e branche : 2],
+                'join' : {
+                        's1': [],
+                        's2': [],
+                        'lon': []
+                         }
+                }
+
+
+
+
+
+        Function : Bellman-Ford
+Inputs : 
+    - G = (V, E) : a digraph without negative cycles
+    - p : an arity-2 function that returns the weight of the edge (u, v) in O(1)
+    - s : the index of the source vertex in V
+
+Outputs :
+    - prev : An array containing the previous vertex of each vertex.
+    - weight : An array containing, for each vertex, the weight of the shortest path (sum of weights) from the source to this vertex.
+
+Begin : 
+    For v in V : 
+        weight[v] = infinity
+        prev[v] = "-"
+    EndFor
+
+    weight[s] = 0 // The weight of the shortest path from the source to the source is 0
+
+    For i in 1 to |V| - 1 :  
+        For each edge (u, v) in E :
+            If weight[u] + p(u, v) < weight[v] :
+                weight[v] = weight[u] + p(u, v)
+                prev[v] = u
+        EndFor
+    EndFor
+End
