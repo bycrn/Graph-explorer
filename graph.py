@@ -41,18 +41,46 @@ class Graph():
         return len(visited) == len(self.edges) 
     
     
-    def bellman_ford(self, start_node):
-        #Initialisation
+    def bellman_ford(self, start_node, destination):
+        # Initialize distances and parents
         self.d = {node: float('inf') for node in self.edges}
         self.d[start_node] = 0
-        #Nombre de sommets
+        parents = {node: None for node in self.edges}
+
+        #ONE TO ALL
+        
+        # Number of vertices
         nbrVertex = self.calculateNbrVertex()
+
         for i in range(1, nbrVertex - 1):
             for from_node, to_nodes in self.edges.items():
                 for to_node in to_nodes:
                     if self.d[to_node] > self.d[from_node] + self.weights[(from_node, to_node)]:
                         self.d[to_node] = self.d[from_node] + self.weights[(from_node, to_node)]
-                
+                        parents[to_node] = from_node  # Update the parent
+
+
+        # RETRIEVE PATH ONE TO ONE 
+      
+        shortest_path = []
+        while destination is not None:
+            shortest_path.insert(0, destination)
+            destination = parents[destination]
+
+        
+        return (self.d, shortest_path)
+
+
+    def calculateTime(self, start_node, destination):
+        temp = self.bellman_ford(start_node, destination)
+        print(temp[0])
+        for key in temp[1]:
+            if destination == key:
+                return int(temp[0][key]/60)
+        
+
+
+
 
     def prim(self, start_node, list_verteces=None, tree=None):
         if list_verteces is None:
