@@ -69,6 +69,8 @@ class Graph():
 
         
         return (self.d, shortest_path)
+    
+    
 
 
     def calculateTime(self, start_node, destination):
@@ -76,6 +78,8 @@ class Graph():
         for key in temp[0]:
             if destination == key:
                 return int(temp[0][key]/60)
+            
+    # A partir du chemin récupéré, je reconstitue les transferts avec les lignes
     
     def get_transfert(self, start_node, destination):
         temp = self.bellman_ford(start_node, destination)
@@ -90,11 +94,8 @@ class Graph():
         return transfert
 
 
-    def prim(self, start_node, list_verteces=None, tree=None):
-        if list_verteces is None:
-            list_verteces = []
-        if tree is None:
-            tree = []
+
+    def prim(self, start_node, list_verteces=[], tree=[]):
         weightsList = []
         edgesList = []
 
@@ -103,28 +104,27 @@ class Graph():
                 list_verteces.append(start_node)
             for vertex in list_verteces:
                 for edge in self.weights:
-                    if edge[0] == vertex:
-                        if edge[0] not in list_verteces or edge[1] not in list_verteces:
-                            weightsList.append(self.weights[edge])
-                            edgesList.append(edge)
+                    if edge[0] == vertex and edge[1] not in list_verteces:
+                        weightsList.append(self.weights[edge])
+                        edgesList.append(edge)
+            
             min_weight = weightsList[0]
             index = 0
             for i in range(len(weightsList)):
                 if min_weight > weightsList[i]:
-                    min_weight = weightsList[i]
+                    min_weight = weightsList[i]    
                     index = i
-
             tree.append(edgesList[index])
 
             for summit in edgesList[index]:
                 if summit not in list_verteces:
                     list_verteces.append(summit)
 
-        if len(list_verteces) != self.calculateNbrVertex():
+        
+        if len(list_verteces) <= self.calculateNbrVertex():
             self.prim(start_node, list_verteces, tree)
-            
+        
         return tree
-
 
 
 
