@@ -73,13 +73,11 @@ class Graph():
 
     def calculateTime(self, start_node, destination):
         temp = self.bellman_ford(start_node, destination)
-        print(temp[0])
-        for key in temp[1]:
+        print(temp[1])
+        for key in temp[0]:
             if destination == key:
                 return int(temp[0][key]/60)
         
-
-
 
 
     def prim(self, start_node, list_verteces=None, tree=None):

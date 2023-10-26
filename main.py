@@ -21,4 +21,6 @@ if __name__ == "__main__":
     graph.bellman_ford(start_node, destination)
     
     print(graph.calculateTime(start_node, destination))
+    
+    print(graph.edges)
     # Print the calculated distances
