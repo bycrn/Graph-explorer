@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../algojet"
+		},
+		{
+			"path": "../metro-Dijkstra-main"
+		}
+	],
+	"settings": {}
+}

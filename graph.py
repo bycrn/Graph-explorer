@@ -20,6 +20,9 @@ class Graph():
             self.edges[to_node].append(from_node)
             self.weights[(to_node, from_node)] = weight
 
+    def calculateNbrVertex(self):
+        max_vertex = max(self.edges.keys())
+        return max_vertex
     
     def is_connected(self):
         if not self.edges:
@@ -37,43 +40,76 @@ class Graph():
                     queue.append(neighbor)
         return len(visited) == len(self.edges) 
     
+    
     def bellman_ford(self, start_node):
-        pass
+        #Initialisation
+        self.d = {node: float('inf') for node in self.edges}
+        self.d[start_node] = 0
+        #Nombre de sommets
+        nbrVertex = self.calculateNbrVertex()
+        for i in range(1, nbrVertex - 1):
+            for from_node, to_nodes in self.edges.items():
+                for to_node in to_nodes:
+                    if self.d[to_node] > self.d[from_node] + self.weights[(from_node, to_node)]:
+                        self.d[to_node] = self.d[from_node] + self.weights[(from_node, to_node)]
+                
+
+    def prim(self, start_node, list_verteces=None, tree=None):
+        if list_verteces is None:
+            list_verteces = []
+        if tree is None:
+            tree = []
+        weightsList = []
+        edgesList = []
+
+        if self.is_connected():
+            if start_node not in list_verteces:
+                list_verteces.append(start_node)
+            for vertex in list_verteces:
+                for edge in self.weights:
+                    if edge[0] == vertex:
+                        if edge[0] not in list_verteces or edge[1] not in list_verteces:
+                            weightsList.append(self.weights[edge])
+                            edgesList.append(edge)
+            min_weight = weightsList[0]
+            index = 0
+            for i in range(len(weightsList)):
+                if min_weight > weightsList[i]:
+                    min_weight = weightsList[i]
+                    index = i
+
+            tree.append(edgesList[index])
+
+            for summit in edgesList[index]:
+                if summit not in list_verteces:
+                    list_verteces.append(summit)
+
+        if len(list_verteces) != self.calculateNbrVertex():
+            self.prim(start_node, list_verteces, tree)
+            
+        return tree
 
 
-# Création de l'instance graphe
-graph = Graph()
-
-# Check connectivity
-is_connected = graph.is_connected()
-if is_connected:
-    print("Le graphe est connecté.")
-else:
-    print("Le graphe n'est pas connecté.")
 
 
+if __name__ == "__main__":
+    # Create a graph instance
+    graph = Graph()
+    # print(graph.edges,'\n', graph.weights)
+    
+    # Check connectivity
+    is_connected = graph.is_connected()
+    if is_connected:
+        print("Le graphe est connecté.")
+    else:
+        print("Le graphe n'est pas connecté.")
+    
+    start_node = 48
 
+    graph.bellman_ford(start_node)
+    
+    print(graph.prim(start_node))
 
-# # print(graph.edges ,'\n\n', graph.weights)
-
-# start_node = 0  # Replace with the desired starting node
-# shortest_paths = graph.bellman_ford(start_node)
-
-# # print(shortest_paths)
-# # Print the shortest paths
-# for node, distance in shortest_paths.items():
-#     print(f"Distance from {start_node} to {node}: {distance}")
-
-
-
-# # fonction qui trouve l'id d'une station fonction du nom
-# def find_id(summit):
-#     sommet = summit.get().lower()
-#     for  key in subway_data['stations']:
-#         if subway_data['stations'][key][0] == sommet:
-#             node_id = key
-#     return node_id 
-
-
+    # Print the calculated distances
 
 
