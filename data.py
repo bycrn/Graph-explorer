@@ -1,4 +1,3 @@
-lignes = []
 
 subway_data = {
                 'stations' : {},
@@ -44,32 +43,10 @@ with open('metro.txt', 'r', encoding="UTF-8") as metro:
             subway_data['join']['lon'].append(int(line.split()[1:][2]))
             
 
-# Create a dictionary to store neighbors for each station
-neighbors = {}
-
-# Iterate through the connections and accumulate neighbors
-for s1, s2 in zip(subway_data['join']['summit1'], subway_data['join']['summit2']):
-    if s1 not in neighbors:
-        neighbors[s1] = set()
-    if s2 not in neighbors:
-        neighbors[s2] = set()
-    
-    # Add neighbors to each station
-    neighbors[s1].add(s2)
-    neighbors[s2].add(s1)
-
-# Convert the dictionary to nested lists
-neighbors_list = [[station, list(neighbors)] for station, neighbors in neighbors.items()]
-
-# Sort the neighbor lists in ascending order
-neighbors_list = sorted(neighbors_list, key=lambda x: x[0])
-
-# for element in neighbors_list:
-#     print(element)
 
 
 # Create a dictionary to store metro lines
-metro_lines = {}
+terminus = {}
 
 # Iterate through the station information
 for station_id, station_info in subway_data['stations'].items():
@@ -77,21 +54,21 @@ for station_id, station_info in subway_data['stations'].items():
     is_mainbranch = station_info[3] == 0
     branch = station_info[3]
     
-    if line_number not in metro_lines:
-            metro_lines[line_number] = [[],[],[]]
-        
-    if is_mainbranch:
-        if station_info[2]:
-            metro_lines[line_number][0].insert(0, station_id)
-        metro_lines[line_number][0].append(station_id)
-    else : 
-        if branch == 1:
-            metro_lines[line_number][1].append(station_id)
-        if branch == 2:
-            metro_lines[line_number][2].append(station_id)
+    if line_number not in terminus:
+            terminus[line_number] = [[]]
+    
+    if station_info[2]:
+        if is_mainbranch:
+            terminus[line_number][0].insert(0, station_id)
+
+        else : 
+            if branch == 1:
+                terminus[line_number][0].append(station_id)
+            if branch == 2:
+                terminus[line_number].append([terminus[line_number][0][0],station_id])
     
 
-# print(metro_lines)
+
  
 
 

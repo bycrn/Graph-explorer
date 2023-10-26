@@ -1,16 +1,16 @@
 from graph import Graph
-from data import subway_data
+from data import terminus
 
-
+lines = []
 
 
 if __name__ == "__main__":
     # Create a graph instance
     graph = Graph()
-    # print(graph.edges,'\n', graph.weights)
     
     # Check connectivity
     is_connected = graph.is_connected()
+    
     if is_connected:
         print("Le graphe est connecté.")
     else:
@@ -20,9 +20,13 @@ if __name__ == "__main__":
     destination = 365
 
     get_all = graph.bellman_ford(start_node, destination)
-    start_node = 7
     print(graph.get_transfert(start_node, destination))
-    prime = graph.prim(start_node)
-    print(prime)
-    
-    # Print the calculated distances
+   
+    for line in terminus:
+        temp_lines = [line]
+        for branch in terminus[line]:
+            temp = graph.bellman_ford(branch[0], branch[1])
+            temp_lines.append(temp[1])
+        lines.append(temp_lines)
+            
+    print(lines)
