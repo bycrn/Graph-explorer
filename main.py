@@ -18,9 +18,8 @@ if __name__ == "__main__":
     start_node = 48
     destination = 365
 
-    graph.bellman_ford(start_node, destination)
+    get_all = graph.bellman_ford(start_node, destination)
     
-    print(graph.calculateTime(start_node, destination))
+    print(graph.get_transfert(start_node, destination))
     
-    print(graph.edges)
     # Print the calculated distances

@@ -73,11 +73,21 @@ class Graph():
 
     def calculateTime(self, start_node, destination):
         temp = self.bellman_ford(start_node, destination)
-        print(temp[1])
         for key in temp[0]:
             if destination == key:
                 return int(temp[0][key]/60)
+    
+    def get_transfert(self, start_node, destination):
+        temp = self.bellman_ford(start_node, destination)
+        transfert = {}
+        for ID in temp[1]:
+            for stationID, statinfo in subway_data['stations'].items() :
+                if stationID == ID :
+                    if statinfo[1] in transfert:
+                        transfert[statinfo[1]].append((ID, statinfo[0]))
+                    else : transfert[statinfo[1]] = [(ID, statinfo[0])] 
         
+        return transfert
 
 
     def prim(self, start_node, list_verteces=None, tree=None):
