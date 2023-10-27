@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../metro-Dijkstra-main"
+		},
+		{
+			"path": "../graphexplorersite"
 		}
 	],
 	"settings": {}
