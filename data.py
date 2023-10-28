@@ -45,6 +45,8 @@ with open('metro.txt', 'r', encoding="UTF-8") as metro:
 
 
 
+
+
 # Create a dictionary to store metro lines
 terminus = {}
 
@@ -69,7 +71,6 @@ for station_id, station_info in subway_data['stations'].items():
     
 
 
- 
 
 
 

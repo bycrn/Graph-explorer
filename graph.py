@@ -120,7 +120,6 @@ class Graph():
                 if summit not in list_verteces:
                     list_verteces.append(summit)
 
-        
         if len(list_verteces) <= self.calculateNbrVertex():
             self.prim(start_node, list_verteces, tree)
         
@@ -128,6 +127,12 @@ class Graph():
 
 
 
+graph = Graph()
+
+graph.add_edge(subway_data)
+
+
+print(graph.weights)
 
 
 
