@@ -81,3 +81,14 @@ with open('pospoints.txt', 'r', encoding='utf-8') as file:
             y_coord = int(y_coord)
             position[(x_coord, y_coord)] = int(station_name)  # Replace @ with spaces
 
+
+from graph import Graph
+graph = Graph()
+lines = []
+
+for line in terminus:
+        temp_lines = [line]
+        for branch in terminus[line]:
+            temp = graph.bellman_ford(branch[0], branch[1])
+            temp_lines.append(temp[1])
+        lines.append(temp_lines)

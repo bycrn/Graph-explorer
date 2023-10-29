@@ -1,13 +1,13 @@
 from graph import Graph
-from data import terminus, subway_data
+from data import terminus, subway_data, lines
 
 
 
-lines = []
+
 
 
 # Function to find directions for each line in the route
-def find_directions(transfert):
+def find_directions(transfert, lines):
     direction, directions  = [], []
     for key in transfert :
         for line in lines :
@@ -29,7 +29,13 @@ def find_directions(transfert):
     return direction
 
 
-
+def findname(directions):
+    convert = []
+    for id_station in directions :
+        for station_id, info in subway_data['stations'].items():
+            if id_station == station_id:
+                convert.append(info[0])
+    return convert
 
 if __name__ == "__main__":
     # Create a graph instance
@@ -37,12 +43,7 @@ if __name__ == "__main__":
     
     # Reconstitution des lignes de métro
     
-    for line in terminus:
-        temp_lines = [line]
-        for branch in terminus[line]:
-            temp = graph.bellman_ford(branch[0], branch[1])
-            temp_lines.append(temp[1])
-        lines.append(temp_lines)
+    
 
     
     # # Check connectivity
@@ -53,8 +54,8 @@ if __name__ == "__main__":
     # else:
     #     print("Le graphe n'est pas connecté.")
     
-    start_node = 48
-    destination = 365
+    start_node = 1
+    destination = 97
 
     # graph.get_transfert(start_node, destination)
     
@@ -67,7 +68,10 @@ if __name__ == "__main__":
     # Call the function to get directions for each line in your route
     route_directions = find_directions(transfert)
     
+    
     print(shortest_path,"\n","\n",transfert,"\n","\n",time_sp,"\n","\n",route_directions,"\n",)
+    
+    print(findname(route_directions))
   
 
     
