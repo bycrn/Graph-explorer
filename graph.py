@@ -16,8 +16,8 @@ class Graph():
             weight = subway_data['join']['lon'][i]
         
             self.edges[from_node].append(to_node)
-            self.weights[(from_node, to_node)] = weight
             self.edges[to_node].append(from_node)
+            self.weights[(from_node, to_node)] = weight
             self.weights[(to_node, from_node)] = weight
 
     def calculateNbrVertex(self):
@@ -94,45 +94,40 @@ class Graph():
         return transfert
 
 
+    def prim(self, start_node, list_vertices=[], tree=[]):
+        if not self.is_connected():
+            return tree
 
-    def prim(self, start_node, list_verteces=[], tree=[]):
         weightsList = []
         edgesList = []
 
-        if self.is_connected():
-            if start_node not in list_verteces:
-                list_verteces.append(start_node)
-            for vertex in list_verteces:
-                for edge in self.weights:
-                    if edge[0] == vertex and edge[1] not in list_verteces:
-                        weightsList.append(self.weights[edge])
-                        edgesList.append(edge)
-            
-            min_weight = weightsList[0]
-            index = 0
-            for i in range(len(weightsList)):
-                if min_weight > weightsList[i]:
-                    min_weight = weightsList[i]    
-                    index = i
-            tree.append(edgesList[index])
+        if start_node not in list_vertices:
+            list_vertices.append(start_node)
 
-            for summit in edgesList[index]:
-                if summit not in list_verteces:
-                    list_verteces.append(summit)
+        for vertex in list_vertices:
+            for edge in self.weights:
+                if edge[0] == vertex and edge[1] not in list_vertices:
+                    weightsList.append(self.weights[edge])
+                    edgesList.append(edge)
 
-        if len(list_verteces) <= self.calculateNbrVertex():
-            self.prim(start_node, list_verteces, tree)
-        
+        if not weightsList:  # If weightsList is empty, return the current tree
+            return tree
+
+        min_weight = weightsList[0]
+        index = 0
+        for i in range(len(weightsList)):
+            if min_weight > weightsList[i]:
+                min_weight = weightsList[i]
+                index = i
+
+        tree.append(edgesList[index])
+
+        for summit in edgesList[index]:
+            if summit not in list_vertices:
+                list_vertices.append(summit)
+
+        if len(list_vertices) <= self.calculateNbrVertex():
+            self.prim(start_node, list_vertices, tree)
+
         return tree
-
-
-
-graph = Graph()
-
-graph.add_edge(subway_data)
-
-
-print(graph.weights)
-
-
 

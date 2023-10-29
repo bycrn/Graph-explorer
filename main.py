@@ -1,5 +1,5 @@
 from graph import Graph
-from data import terminus
+from data import terminus, subway_data
 
 
 
@@ -8,7 +8,7 @@ lines = []
 
 # Function to find directions for each line in the route
 def find_directions(transfert):
-    direction = []
+    direction, directions  = [], []
     for key in transfert :
         for line in lines :
             if key == line[0]:
@@ -21,22 +21,14 @@ def find_directions(transfert):
                         if transfert[key][-1][0] == line[i][index - 1]:
                             direction.append(line[i][0])
                             break
-        
+    for ids in direction:
+        for key, values in subway_data['stations'].items():
+            if ids == key:
+                directions.append(values[0])
+            
     return direction
 
-# def print_path(transfer,final_path,time_sp, directions):
-    
-#     text = [f"Vous êtes à {subway_data['stations'][transfer[0][0]][0].upper()}", 
-#             f"Prenez la ligne {transfer[0][2]} en direction de {subway_data['stations'][directions[0]][0].upper()}"]
-#     for i in range(len(transfer) - 1):
-#         for j in range(len(directions)-1):
-#             if len(transfer) >= 2:
-#                 text.append(f"A {subway_data['stations'][transfer[i][1]][0].upper()}, changez et prenez la ligne {transfer[i+1][2]} en direction de {subway_data['stations'][directions[j+1]][0].upper()}")
 
-#     text.append(f"Vous devriez arriver a {subway_data['stations'][final_path[-1]][0].upper()} dans {round((time_sp/60),2)} mn")
-#     text.append('\n')
-
-#     return text
 
 
 if __name__ == "__main__":
@@ -77,6 +69,5 @@ if __name__ == "__main__":
     
     print(shortest_path,"\n","\n",transfert,"\n","\n",time_sp,"\n","\n",route_directions,"\n",)
   
-
 
     

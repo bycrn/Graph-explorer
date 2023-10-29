@@ -4,13 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../algojet"
-		},
-		{
-			"path": "../metro-Dijkstra-main"
-		},
-		{
-			"path": "../graphexplorersite"
+			"path": "../FlaskGraph"
 		}
 	],
 	"settings": {}

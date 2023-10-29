@@ -31,23 +31,7 @@ class Graph:
         return max_vertex
 
 
-# Bellman-Ford 
 
-# En entrée :  G=(V,E) graphe orienté pondéré et r un sommet de G
-# En sortie : Pour chaque sommet u de G un chemin de poids minimal de r vers u
-
-# Initialisations
-# Pour i:= 1 à n-1 /* n = nbre de sommets */
-#   Relacher tous les arcs de G
-# Vérifier qu'il n'y a pas de circuit négatif
-
-#Initialisation 
-    # Mettre une etiquette inf sur tous les sommets et une etiquette 0 sur r 
-
-# Relâchement(u,v)
-# Si d[v] > d[u] + w(u,v) alors
-    # d[v] := d[u] + w(u,v)
-    # Parent[v] := u
     
     def is_connected(self):
         if not self.edges:
@@ -65,7 +49,24 @@ class Graph:
                     queue.append(neighbor)
         return len(visited) == len(self.edges) 
 
+# Bellman-Ford 
 
+# En entrée :  G=(V,E) graphe orienté pondéré et r un sommet de G
+# En sortie : Pour chaque sommet u de G un chemin de poids minimal de r vers u
+
+# Step 1 Initialisations
+# step 2 Pour i:= 1 à n-1 /* n = nbre de sommets */
+#   Relacher tous les arcs de G
+# Step 3 Vérifier qu'il n'y a pas de circuit négatif
+
+#Initialisation 
+    # Mettre une etiquette inf sur tous les sommets et une etiquette 0 sur r 
+
+# Relâchement(u,v)
+# Si d[v] > d[u] + w(u,v) alors
+    # d[v] := d[u] + w(u,v)
+    # Parent[v] := u
+    
     def bellman_ford(self, start_node):
         #Initialisation
         self.d = {node: float('inf') for node in self.edges}

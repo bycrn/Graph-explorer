@@ -31,7 +31,7 @@ with open('metro.txt', 'r', encoding="UTF-8") as metro:
             #               terminus True or False
             #               branchement principale : 0, 1er branche : 1, 2e branche : 2
             
-            subway_data['stations'][int(line.split()[1])] = [' '.join(line.lower().split()[2:-3]), 
+            subway_data['stations'][int(line.split()[1])] = [' '.join(line.split()[2:-3]), 
                                                      line.split()[-3][1:], 
                                                      False if line.split()[-2][1:] == 'False' else True, 
                                                      0 if line.split()[-1]== '0' else 1 if line.split()[-1] == '1' else 2]
@@ -42,9 +42,6 @@ with open('metro.txt', 'r', encoding="UTF-8") as metro:
             subway_data['join']['summit2'].append(int(line.split()[1:][1]))
             subway_data['join']['lon'].append(int(line.split()[1:][2]))
             
-
-
-
 
 
 # Create a dictionary to store metro lines
@@ -71,15 +68,16 @@ for station_id, station_info in subway_data['stations'].items():
     
 
 
+               
+                
+position = {}
 
-
-
-
-
-
-
-
-
-
-
+with open('pospoints.txt', 'r', encoding='utf-8') as file:
+    for line in file:
+        line = line.strip().split(';')
+        if len(line) == 3:
+            x_coord, y_coord, station_name = line
+            x_coord = int(x_coord)
+            y_coord = int(y_coord)
+            position[(x_coord, y_coord)] = int(station_name)  # Replace @ with spaces
 
