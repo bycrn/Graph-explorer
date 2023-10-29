@@ -3,10 +3,7 @@ from data import terminus, subway_data, lines
 
 
 
-
-
-
-# Function to find directions for each line in the route
+# Function to find directions for each shift of metro line during itinerary
 def find_directions(transfert, lines):
     direction, directions  = [], []
     for key in transfert :
@@ -29,6 +26,8 @@ def find_directions(transfert, lines):
     return direction
 
 
+#  Function to swap station id by name in a list
+
 def findname(directions):
     convert = []
     for id_station in directions :
@@ -37,14 +36,13 @@ def findname(directions):
                 convert.append(info[0])
     return convert
 
+
+# To test the code manualy 
+
+
 if __name__ == "__main__":
     # Create a graph instance
     graph = Graph()
-    
-    # Reconstitution des lignes de métro
-    
-    
-
     
     # # Check connectivity
     is_connected = graph.is_connected()
@@ -54,10 +52,8 @@ if __name__ == "__main__":
     else:
         print("Le graphe n'est pas connecté.")
     
-    start_node = 1
-    destination = 97
-
-    # graph.get_transfert(start_node, destination)
+    start_node = input("start : ")
+    destination = input("dest : ")
     
     shortest_path = graph.bellman_ford(start_node, destination)[1]
     

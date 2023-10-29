@@ -1,4 +1,22 @@
 
+line_colors = {
+    '1': '#F6D046',
+    '2': '#2962AB',
+    '3': '#9F993B',
+    '3bis': '#A4D2E0',
+    '4': '#B24A8E',
+    '5': '#E49352',
+    '6': '#90C195',
+    '7': '#E8A7BA',
+    '7bis': '#90C195',
+    '8': '#9F993B',
+    '9': '#BAB33A',
+    '10': '#DBB448',
+    '11': '#866034',
+    '12': '#387F53',
+    '13': '#A4D2E0',
+    '14': '#5E287E'
+}
 
 # subway_data = {
 #                 'stations' : {
@@ -98,7 +116,8 @@ with open('pospoints.txt', 'r', encoding='utf-8') as file:
             position[(x_coord, y_coord)] = int(station_name)  # Replace @ with spaces
 
 
-# Create an array to store metro's lines      
+# Create an array to store metro's lines   
+    # Reconstitution des lignes de métro   
 
 from graph import Graph
 graph = Graph()
