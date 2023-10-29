@@ -1,8 +1,15 @@
-# stations et liens du métro parisien
-# format : V num sommet nom_sommet
-#          E num_sommet1 num_sommet1 temps_en_secondes
+# -------- 1) Description du stockage des données ------------
 
+# format pour les sommets :
+# V num_sommet nom_sommet numéro_ligne si_terminus branchement (0 stations en commun, 1 pour la direction 1,  2 pour la direction 2, ainsi 
+# de suite ...)
+    
+# format pour les arêtes :
+# E num_sommet1 num_sommet2 temps_en_secondes 
 
+# _______________________________________________________________
+
+# récupérer les diférentes lignes et branches
 V 0000 Abbesses ;12 ;False 0
 V 0001 Alexandre Dumas ;2 ;False 0
 V 0002 Alma Marceau ;9 ;False 0

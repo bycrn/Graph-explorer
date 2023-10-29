@@ -1,4 +1,20 @@
 
+
+# subway_data = {
+#                 'stations' : {
+#                         'numstation : [
+#                                      station name,
+#                                      ligne 
+#                                      terminus Oui : 1 / Non : 0
+#                                      branchement principale : 0, 1er branche : 1, 2e branche : 2],
+#                 'join' : {
+#                         's1': [],
+#                         's2': [],
+#                         'lon': []
+#                          }
+#                 }
+
+
 subway_data = {
                 'stations' : {},
                 'join' : {
@@ -45,9 +61,9 @@ with open('metro.txt', 'r', encoding="UTF-8") as metro:
 
 
 # Create a dictionary to store metro lines
+
 terminus = {}
 
-# Iterate through the station information
 for station_id, station_info in subway_data['stations'].items():
     line_number = station_info[1]
     is_mainbranch = station_info[3] == 0
@@ -68,7 +84,7 @@ for station_id, station_info in subway_data['stations'].items():
     
 
 
-               
+# Create a dictionary to store metro's positions                
                 
 position = {}
 
@@ -81,6 +97,8 @@ with open('pospoints.txt', 'r', encoding='utf-8') as file:
             y_coord = int(y_coord)
             position[(x_coord, y_coord)] = int(station_name)  # Replace @ with spaces
 
+
+# Create an array to store metro's lines      
 
 from graph import Graph
 graph = Graph()

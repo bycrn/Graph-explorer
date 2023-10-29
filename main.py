@@ -47,12 +47,12 @@ if __name__ == "__main__":
 
     
     # # Check connectivity
-    # is_connected = graph.is_connected()
+    is_connected = graph.is_connected()
     
-    # if is_connected:
-    #     print("Le graphe est connecté.")
-    # else:
-    #     print("Le graphe n'est pas connecté.")
+    if is_connected:
+        print("Le graphe est connecté.")
+    else:
+        print("Le graphe n'est pas connecté.")
     
     start_node = 1
     destination = 97

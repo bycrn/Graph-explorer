@@ -1,60 +1,27 @@
 import tkinter as tk
-from data import position, subway_data, lines  # Assuming `position` and `subway_data` are defined in your data module
-from graph import Graph  # Assuming the graph class exists
+from data import position, subway_data, lines , line_colors 
+from graph import Graph  
 from main import find_directions, findname
 
 graph = Graph()  # Your graph object
 
-line_colors = {
-    '1': '#F6D046',
-    '2': '#2962AB',
-    '3': '#9F993B',
-    '3bis': '#A4D2E0',
-    '4': '#B24A8E',
-    '5': '#E49352',
-    '6': '#90C195',
-    '7': '#E8A7BA',
-    '7bis': '#90C195',
-    '8': '#9F993B',
-    '9': '#BAB33A',
-    '10': '#DBB448',
-    '11': '#866034',
-    '12': '#387F53',
-    '13': '#A4D2E0',
-    '14': '#5E287E'
-}
-
-def create_left_panel(root):
-    left_panel = tk.Frame(root, bg='white')
-    left_panel.pack(side=tk.LEFT, fill=tk.Y)
-
-    for line, color in line_colors.items():
-        # Draw line circle with line number
-        line_circle = tk.Canvas(left_panel, width=30, height=30, bg=color, highlightthickness=0)
-        line_circle.create_oval(5, 5, 25, 25, fill=color)
-        line_circle.create_text(15, 15, text=line, fill='black')
-        line_circle.pack(pady=5)
-
-        # Example icons (Replace with your own)
-        direction_icon = tk.Label(left_panel, text="→", font=("Arial", 10))
-        direction_icon.pack()
-
-        # Station names
-        station_label = tk.Label(left_panel, text="Station Name", font=("Arial", 8))
-        station_label.pack()
+# Retrieving the id from the name
 
 def found_ID(name):
     for station_id, info in subway_data['stations'].items():
         if name == info[0]:
             return station_id
         
-        
+# Retrieving the coordinates of a station 
+
 def get_station_coordinates(station):
     for (x, y), station_id in position.items():
         if station_id == station:
             return x, y
     return None, None
        
+# Change the color of the vertex and draw lines between each stations
+
 
 def change_color(depart_station, dest_station):
     reset_stations_color()
@@ -92,7 +59,8 @@ def change_color(depart_station, dest_station):
             lines_between_stations.append(line)
     
     create_transit_map(transfert, route_directions, time_sp)
-    
+
+#  Color the graph to give the acpm
             
 def color_acpm(depart_station):
     reset_stations_color()
@@ -118,7 +86,8 @@ def color_acpm(depart_station):
 
             # Store the line in a list to remove it later if needed
             lines_between_stations.append(line)
-            
+
+# Display a colorfull  itinary 
             
 def create_transit_map(transfert, route_directions, time):
     
@@ -143,7 +112,7 @@ def create_transit_map(transfert, route_directions, time):
     time_icon = tk.Label(frame, text=f"~{time} mn", font=("Arial", 70))
     time_icon.pack(ipady=50)
        
-        
+#  Destroy every widgets between each search 
     
 def reset_stations_color():
     for station_id in stations.keys():
@@ -157,16 +126,16 @@ def reset_stations_color():
         if widget not in widgets_to_keep:
             widget.destroy()
     
-         
+# Button
 
 def on_submit():
     change_color(found_ID(departure_var.get()), found_ID(destination_var.get()))
-    
-    # Display metro lines
-    
+      
 def acpm_submit():
     color_acpm(found_ID(acpm_root.get()))
 
+
+# Screen/ canvas / frame
 root = tk.Tk()
 root.title("Station Map")
 
@@ -177,6 +146,9 @@ frame.pack(side=tk.LEFT)
 canvas = tk.Canvas(root, width=1200, height=1000)
 canvas.pack()
 
+
+# Graphic illustration of the stations
+
 stations = {}
 lines_between_stations = []
 
@@ -184,6 +156,7 @@ for (x, y), station_id in position.items():
     station = canvas.create_oval(x - 5, y - 5, x + 5, y + 5, fill="black")
     stations[station_id] = station
     
+# Drop-downs for selection 
 
 departure_var = tk.StringVar(root)
 departure_var.set("Select Departure")
@@ -198,6 +171,7 @@ destination_values = [info[0] for info in subway_data['stations'].values()]
 destination_dropdown = tk.OptionMenu(frame, destination_var, *destination_values)
 destination_dropdown.pack(anchor='n', pady=5)
 
+# Button
 submit_button = tk.Button(frame, text="Submit", command=on_submit)
 submit_button.pack(anchor='n', pady=5)
 
@@ -212,8 +186,9 @@ acpm_rootValues = [info[0] for info in subway_data['stations'].values()]
 acpm_rootValues_dropdown = tk.OptionMenu(top_frame, acpm_root, *acpm_rootValues)
 acpm_rootValues_dropdown.pack()
 
-# Create a button inside the new frame
-acpm_button = tk.Button(top_frame, text="Submit", command=acpm_submit)
+# Create a button inside the top frame
+
+acpm_button = tk.Button(top_frame, text="ACPM", command=acpm_submit)
 acpm_button.pack(side=tk.RIGHT)
 
 root.mainloop()

@@ -5,6 +5,11 @@ from data import subway_data
 # Création du graphe où on ajoute les arrêtes et les poids 
 class Graph():
     def __init__(self):
+        
+        # Create a graph instance
+            # struct of graph edges :{0: [238, 159], 238: [0, 322, 239], .....}
+            # struct of graph weight = {(s1, S2) : w1, ... , (sk, sn) : wp }
+
         self.edges = defaultdict(list)
         self.weights = {}
         self.add_edge(subway_data)
@@ -40,6 +45,24 @@ class Graph():
                     queue.append(neighbor)
         return len(visited) == len(self.edges) 
     
+    # Bellman-Ford 
+
+        # En entrée :   - G=(V,E) graphe orienté pondéré et 
+        #               - r un sommet de G
+        # En sortie : Pour chaque sommet u de G un chemin de poids minimal de r vers u
+
+        # Step 1 Initialisations
+        # step 2 Pour i:= 1 à n-1 /* n = nbre de sommets */
+        #            Relacher tous les arcs de G
+        # Step 3 Vérifier qu'il n'y a pas de circuit négatif
+
+        #Initialisation (step 1)
+            # Mettre une etiquette inf sur tous les sommets et une etiquette 0 sur r 
+
+        # Relâchement(u,v)(step 2)
+        # Si d[v] > d[u] + w(u,v) alors
+            # d[v] := d[u] + w(u,v)
+            # Parent[v] := u
     
     def bellman_ford(self, start_node, destination):
         # Initialize distances and parents
@@ -93,6 +116,32 @@ class Graph():
         
         return transfert
 
+    # Algo de prim : arbre couvrant de poid minimal
+        # On a un graphe connexe pondéré
+        # Input : G(V, E)
+        # Output : arbre contenant tous les sommets de poids minimun
+        
+        # Algorithme :
+        #     entrée : graphe, start_node
+        #     sortie : arbre couvrant 
+            
+        # We take any vertx of the graph.
+        # At each we will grow this tree.
+        #     step 1 : add the edge of minimum weight linked to you vertex.
+        #         The chosen edges will be the edges of minimum weights 
+        #     step 2 : Check every edge linked to your verteces in you tree 
+        #     and verify that the two verteces of this edge are not on the tree already 
+        #     add the edge if it's the edge of minimum weight
+        #     if there is multiple minimum edge with the same weight, take a random one
+            
+        #     add weight in the total_weight 
+            
+        #     if there is no vertices left 
+        #           => End
+        #           Return tree
+        #     else recurrence
+            
+       
 
     def prim(self, start_node, list_vertices=[], tree=[]):
         if not self.is_connected():
