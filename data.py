@@ -124,8 +124,9 @@ graph = Graph()
 lines = []
 
 for line in terminus:
-        temp_lines = [line]
-        for branch in terminus[line]:
-            temp = graph.bellman_ford(branch[0], branch[1])
-            temp_lines.append(temp[1])
-        lines.append(temp_lines)
+    temp_lines = [line]
+    for branch in terminus[line]:
+        temp = graph.bellman_ford(branch[0], branch[1])
+        temp_lines.append(temp[1])
+    lines.append(temp_lines)
+        

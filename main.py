@@ -1,5 +1,5 @@
 from graph import Graph
-from data import terminus, subway_data, lines
+from data import subway_data
 
 
 
