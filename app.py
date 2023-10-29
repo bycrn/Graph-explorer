@@ -31,7 +31,7 @@ def change_color(depart_station, dest_station):
     time_sp = graph.calculateTime(depart_station, dest_station)
 
     
-    for i in range(len(shortest_path) - 1):
+    for i in range(len(shortest_path)-1):
         current_station = shortest_path[i]
         next_station = shortest_path[i + 1]
         
